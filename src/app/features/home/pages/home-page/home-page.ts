@@ -209,9 +209,9 @@ export class HomePage implements OnInit {
     }
 
     const [, day, month, year, hour, minute] = match;
-    const fullYear = 2000 + Number(year);
+    const parsedYear = 2000 + Number(year);
     const parsedDate = new Date(
-      fullYear,
+      parsedYear,
       Number(month) - 1,
       Number(day),
       Number(hour),
@@ -219,13 +219,17 @@ export class HomePage implements OnInit {
     );
 
     if (
-      parsedDate.getFullYear() !== fullYear ||
+      parsedDate.getFullYear() !== parsedYear ||
       parsedDate.getMonth() !== Number(month) - 1 ||
       parsedDate.getDate() !== Number(day) ||
       parsedDate.getHours() !== Number(hour) ||
       parsedDate.getMinutes() !== Number(minute)
     ) {
       return null;
+    }
+
+    while (parsedDate < this.now()) {
+      parsedDate.setFullYear(parsedDate.getFullYear() + 1);
     }
 
     return parsedDate;

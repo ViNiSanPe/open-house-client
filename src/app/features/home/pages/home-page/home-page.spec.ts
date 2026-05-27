@@ -3,6 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
+import { Invite } from '../../../../core/models/invite.model';
 import { InviteService } from '../../../../shared/services/invite.service';
 import { HomePage } from './home-page';
 
@@ -54,11 +55,27 @@ describe('HomePage', () => {
   });
 
   it('should show the event date returned by the API', () => {
+    component.now.set(new Date(2026, 4, 27));
+
     expect(component.eventDateTime()).toContain('27 de junho');
+    expect(component.eventDateTime()).toContain('sábado');
     expect(component.eventDateTime()).toContain('14:00');
   });
 
   it('should personalize preview tags with invite name and day', () => {
+    component.now.set(new Date(2026, 4, 27));
+    const invite = component.invite();
+
+    if (!invite) {
+      throw new Error('Expected invite to be loaded');
+    }
+
+    (
+      component as unknown as {
+        updatePreviewTags(invite: Invite): void;
+      }
+    ).updatePreviewTags(invite);
+
     const title = TestBed.inject(Title);
     const meta = TestBed.inject(Meta);
 
