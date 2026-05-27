@@ -1,0 +1,27 @@
+{
+  "builds": [
+    {
+      "src": "api/function.mjs",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": "dist/open-house/**"
+      }
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/open-house/browser"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/function.mjs"
+    }
+  ]
+}
