@@ -1,0 +1,44 @@
+@use 'app/shared/styles/variables';
+@use 'app/shared/styles/animations';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--mc-bg);
+  color: var(--mc-text);
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border-radius: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--mc-green-light);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--mc-green);
+  color: var(--mc-text);
+}

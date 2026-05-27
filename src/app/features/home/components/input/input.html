@@ -1,0 +1,34 @@
+<div class="input-wrapper">
+  @if (label()) {
+    <label [attr.for]="inputId" class="input-label">
+      {{ label() }}
+      @if (required()) {
+        <span aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <input
+    [id]="inputId"
+    class="mc-input"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [attr.autocomplete]="autocomplete() || null"
+    [attr.inputmode]="type() === 'email' ? 'email' : null"
+    [attr.maxlength]="type() === 'email' ? 255 : null"
+    [attr.aria-label]="label() || placeholder()"
+    [attr.aria-invalid]="error() ? 'true' : 'false'"
+    [attr.aria-describedby]="error() ? inputId + '-error' : null"
+    (input)="onInputChange($event)"
+    (blur)="onInputBlur()"
+  />
+
+  @if (error()) {
+    <p [id]="inputId + '-error'" class="input-error" role="alert">
+      {{ error() }}
+    </p>
+  }
+</div>

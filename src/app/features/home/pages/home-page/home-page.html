@@ -1,0 +1,196 @@
+<main class="invite-shell">
+  <div class="invite-bg" aria-hidden="true"></div>
+  <div class="invite-overlay" aria-hidden="true"></div>
+
+  <div class="invite-stage">
+    @if (loading()) {
+      <app-card class="state-card" [padded]="true">
+        <p class="state-text">Carregando convite...</p>
+      </app-card>
+    } @else if (error() && currentStep() === 'idle') {
+      <app-card class="state-card" [padded]="true">
+        <h1 class="state-title">Erro</h1>
+        <div class="mc-divider"></div>
+        <p class="state-text">{{ error() }}</p>
+      </app-card>
+    } @else if (hasInvite()) {
+      <app-card class="invite-card" [padded]="true">
+        <div class="chip-wrap">
+          <span class="mc-chip mc-float">
+            <span class="mc-chip-dot" aria-hidden="true"></span>
+            {{ isInviteFlow() ? 'Convite Oficial' : 'Confirmação Oficial' }}
+          </span>
+        </div>
+
+        <h1 class="invite-title">
+          @if (isInviteFlow()) {
+            Venha para o nosso
+            <br />
+            <span>Open-House!</span>
+          } @else {
+            Confirme sua
+            <br />
+            <span>Presença!</span>
+          }
+        </h1>
+
+        <div class="mc-divider"></div>
+
+        <section class="guest-section" aria-labelledby="guest-title">
+          <p id="guest-title" class="guest-kicker">Convite especial para</p>
+          <p class="guest-name">{{ invite()?.name || 'Convidado(a) Especial' }}</p>
+        </section>
+
+        <div class="mc-divider"></div>
+
+        <section class="event-info" aria-label="Informações do evento">
+          <app-info-row icon="map-pin" label="Local" [value]="eventData.location" />
+          <app-info-row icon="calendar" label="Dia & Horário" [value]="eventDateTime()" />
+          <app-info-row icon="pizza" label="No menu" [value]="eventData.menu" />
+          <app-info-row icon="heart" label="Recado" [value]="eventData.note" />
+        </section>
+
+        <div class="confirm-section">
+          @if (isInviteFlow()) {
+            <p class="flow-copy">
+              Cadastre seu email para receber a confirmação uma semana antes do evento.
+            </p>
+          }
+
+          <button
+            class="mc-btn confirm-button"
+            type="button"
+            [disabled]="!isInviteFlow() && isConfirmed()"
+            (click)="handlePrimaryAction()"
+          >
+            {{ primaryButtonLabel() }}
+          </button>
+
+          @if (isInviteFlow() && emailValue()) {
+            <p class="confirmed-copy">Email cadastrado para o lembrete: {{ emailValue() }}</p>
+          }
+
+          @if (!isInviteFlow() && isConfirmed()) {
+            <p class="confirmed-copy">Presença confirmada! Mal podemos esperar para te ver.</p>
+          }
+        </div>
+      </app-card>
+    }
+  </div>
+
+  @if (currentStep() === 'email') {
+    <app-modal labelledBy="email-title" (close)="closeModal()">
+      <div class="modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 6h16v12H4z" />
+          <path d="m4 7 8 6 8-6" />
+        </svg>
+      </div>
+
+      <h2 id="email-title" class="modal-title">Seu email</h2>
+      <div class="mc-divider"></div>
+      <p class="modal-copy">
+        Vamos usar seu email para te avisar quando a confirmação de presença estiver liberada.
+      </p>
+
+      <form class="modal-form" (submit)="submitEmail($event)">
+        <app-input
+          label="Email"
+          type="email"
+          placeholder="voce@exemplo.com"
+          autocomplete="email"
+          [value]="emailValue()"
+          [error]="emailError()"
+          [disabled]="isSubmitting()"
+          (valueChange)="updateEmailValue('' + $event)"
+        />
+
+        <div class="modal-actions">
+          <button type="button" class="mc-btn mc-btn-secondary" (click)="closeModal()">
+            <span aria-hidden="true">x</span>
+            Cancelar
+          </button>
+          <button type="submit" class="mc-btn" [disabled]="isSubmitting()">
+            <span aria-hidden="true">✓</span>
+            {{ isSubmitting() ? 'Salvando...' : 'Salvar email' }}
+          </button>
+        </div>
+      </form>
+    </app-modal>
+  }
+
+  @if (currentStep() === 'email-success') {
+    <app-modal labelledBy="email-success-title" (close)="closeModal()">
+      <div class="modal-icon modal-icon-success mc-check-pop" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="m5 12 5 5L20 7" />
+        </svg>
+      </div>
+
+      <h2 id="email-success-title" class="modal-title">Email cadastrado!</h2>
+      <div class="mc-divider"></div>
+      <p class="modal-copy">
+        Pronto! Vamos te avisar uma semana antes do evento para confirmar sua presença.
+      </p>
+
+      <div class="modal-actions modal-actions-center">
+        <button type="button" class="mc-btn" (click)="closeModal()">Entendi</button>
+      </div>
+    </app-modal>
+  }
+
+  @if (currentStep() === 'confirm') {
+    <app-modal labelledBy="confirm-title" (close)="closeModal()">
+      <h2 id="confirm-title" class="modal-title">Confirmar Presença?</h2>
+      <div class="mc-divider"></div>
+      <p class="modal-copy">
+        Você está prestes a confirmar sua presença no nosso open-house. Tem certeza?
+      </p>
+
+      <div class="modal-actions">
+        <button type="button" class="mc-btn mc-btn-secondary" (click)="closeModal()">
+          <span aria-hidden="true">x</span>
+          Voltar
+        </button>
+        <button
+          type="button"
+          class="mc-btn"
+          [disabled]="isSubmitting()"
+          (click)="confirmAttendance()"
+        >
+          <span aria-hidden="true">✓</span>
+          {{ isSubmitting() ? 'Confirmando...' : 'Sim, confirmar' }}
+        </button>
+      </div>
+    </app-modal>
+  }
+
+  @if (currentStep() === 'presence-success') {
+    <app-modal labelledBy="presence-success-title" (close)="closeModal()">
+      <div class="modal-icon modal-icon-success mc-check-pop" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="m5 12 5 5L20 7" />
+        </svg>
+      </div>
+
+      <h2 id="presence-success-title" class="modal-title">Presença confirmada!</h2>
+      <div class="mc-divider"></div>
+      <p class="modal-copy">Eba, você vai! Mal podemos esperar para te ver.</p>
+
+      <div class="modal-actions modal-actions-center">
+        <button type="button" class="mc-btn" (click)="closeModal()">Fechar</button>
+      </div>
+    </app-modal>
+  }
+
+  @if (currentStep() === 'error') {
+    <app-modal labelledBy="error-title" (close)="closeModal()">
+      <h2 id="error-title" class="modal-title">Algo deu errado</h2>
+      <div class="mc-divider"></div>
+      <p class="modal-copy">{{ error() }}</p>
+      <div class="modal-actions modal-actions-center">
+        <button type="button" class="mc-btn" (click)="closeModal()">Entendi</button>
+      </div>
+    </app-modal>
+  }
+</main>

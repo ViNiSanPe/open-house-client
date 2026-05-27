@@ -1,0 +1,17 @@
+<div
+  class="modal-shell"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="labelledBy()"
+>
+  <button
+    class="modal-backdrop mc-fade"
+    type="button"
+    aria-label="Fechar diálogo"
+    (click)="closeModal()"
+  ></button>
+
+  <div class="modal-panel mc-panel mc-pop">
+    <ng-content></ng-content>
+  </div>
+</div>

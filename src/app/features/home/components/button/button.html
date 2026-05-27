@@ -1,0 +1,13 @@
+<button
+  class="mc-btn"
+  [class.mc-btn-secondary]="variant() === 'secondary'"
+  [disabled]="isLoading() || disabled()"
+  [type]="type()"
+  (click)="handleClick()"
+>
+  @if (isLoading()) {
+    <span class="mc-spinner" aria-hidden="true"></span>
+  } @else {
+    <span>{{ label() }}</span>
+  }
+</button>

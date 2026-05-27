@@ -1,0 +1,177 @@
+:root {
+  --mc-bg: #171615;
+  --mc-surface: #242424;
+  --mc-surface-inset: #1c1c1c;
+  --mc-input: #141414;
+  --mc-green: #3c8527;
+  --mc-green-light: #6cc349;
+  --mc-green-dark: #2a5e1b;
+  --mc-text: #ffffff;
+  --mc-muted: #cfcfcf;
+  --mc-dim: #7a7a7a;
+  --mc-error: #ff8a8a;
+  --mc-border: #000000;
+}
+
+$font-pixel: 'Press Start 2P', 'Minecraft Ten', system-ui, sans-serif;
+$font-vt: 'VT323', 'Courier New', monospace;
+
+.font-pixel {
+  font-family: $font-pixel;
+  letter-spacing: 1px;
+}
+
+.font-vt {
+  font-family: $font-vt;
+  letter-spacing: 0.5px;
+}
+
+.mc-panel {
+  background: var(--mc-surface);
+  border: 3px solid var(--mc-border);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.06),
+    inset 0 -6px 0 rgba(0, 0, 0, 0.45),
+    inset 0 6px 0 rgba(255, 255, 255, 0.04),
+    0 8px 0 rgba(0, 0, 0, 0.55),
+    0 20px 40px rgba(0, 0, 0, 0.5);
+  image-rendering: pixelated;
+}
+
+.mc-inset {
+  background: var(--mc-surface-inset);
+  border: 2px solid var(--mc-border);
+  box-shadow:
+    inset 0 2px 0 rgba(0, 0, 0, 0.6),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.04);
+}
+
+.mc-divider {
+  height: 4px;
+  background-image: linear-gradient(90deg, #000 0 8px, transparent 8px 16px);
+  background-size: 16px 4px;
+  opacity: 0.5;
+}
+
+.mc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mc-surface-inset);
+  border: 2px solid var(--mc-border);
+  padding: 6px 10px;
+  font-family: $font-pixel;
+  font-size: 9px;
+  color: var(--mc-green-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.mc-chip-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--mc-green-light);
+}
+
+.mc-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 60px;
+  background: var(--mc-green);
+  color: var(--mc-text);
+  border: 3px solid var(--mc-border);
+  padding: 18px 28px;
+  font-family: $font-pixel;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.15),
+    inset 0 -6px 0 var(--mc-green-dark),
+    inset 0 6px 0 var(--mc-green-light),
+    0 6px 0 rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease,
+    filter 0.15s ease;
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(3px);
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 255, 255, 0.15),
+      inset 0 -3px 0 var(--mc-green-dark),
+      inset 0 3px 0 var(--mc-green-light),
+      0 3px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  &:disabled {
+    background: #4a4a4a;
+    cursor: not-allowed;
+    color: #d0d0d0;
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+      inset 0 -6px 0 #2a2a2a,
+      inset 0 6px 0 #5a5a5a,
+      0 6px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+.mc-btn-secondary {
+  background: #5a5a5a;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+    inset 0 -6px 0 #383838,
+    inset 0 6px 0 #777,
+    0 6px 0 rgba(0, 0, 0, 0.6);
+
+  &:active:not(:disabled) {
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+      inset 0 -3px 0 #383838,
+      inset 0 3px 0 #777,
+      0 3px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+.mc-input {
+  width: 100%;
+  background: var(--mc-input);
+  color: var(--mc-text);
+  border: 3px solid var(--mc-border);
+  padding: 14px;
+  font-family: $font-vt;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  outline: none;
+  box-shadow:
+    inset 0 2px 0 rgba(0, 0, 0, 0.7),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 2px #2a2a2a;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+
+  &::placeholder {
+    color: var(--mc-dim);
+  }
+
+  &:focus {
+    border-color: var(--mc-green-light);
+    box-shadow:
+      inset 0 2px 0 rgba(0, 0, 0, 0.7),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.05),
+      inset 0 0 0 2px var(--mc-green);
+  }
+}

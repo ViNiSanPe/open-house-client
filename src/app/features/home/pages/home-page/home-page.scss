@@ -1,0 +1,266 @@
+:host {
+  display: block;
+}
+
+.invite-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--mc-bg);
+}
+
+.invite-bg,
+.invite-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.invite-bg {
+  background-image: url('/minecraft-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  image-rendering: pixelated;
+}
+
+.invite-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.invite-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 16px;
+}
+
+.invite-card,
+.state-card {
+  width: 100%;
+  max-width: 672px;
+}
+
+.chip-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.invite-title {
+  margin: 24px 0 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 1px;
+  text-align: center;
+
+  span {
+    color: var(--mc-green-light);
+  }
+}
+
+.mc-divider {
+  margin-top: 24px;
+}
+
+.guest-section {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.guest-kicker {
+  margin: 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.guest-name {
+  margin: 12px 0 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  overflow-wrap: anywhere;
+}
+
+.event-info {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.confirm-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.confirm-button {
+  width: 100%;
+}
+
+.confirmed-copy {
+  margin: 0;
+  color: var(--mc-green-light);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  animation: mc-pop 0.25s ease-out;
+}
+
+.flow-copy {
+  max-width: 520px;
+  margin: 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+
+  strong {
+    color: var(--mc-green-light);
+    font-weight: 400;
+  }
+}
+
+.state-title {
+  margin: 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.state-text {
+  margin: 16px 0 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  text-align: center;
+}
+
+.modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  color: var(--mc-text);
+  background: var(--mc-green-dark);
+  border: 2px solid var(--mc-border);
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+}
+
+.modal-icon-success {
+  width: 56px;
+  height: 56px;
+  background: var(--mc-green);
+
+  svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 3;
+  }
+}
+
+.modal-title {
+  margin: 16px 0 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.modal-copy {
+  margin: 16px 0 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.modal-form {
+  margin-top: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions-center {
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .invite-stage {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  app-card.invite-card {
+    --card-padding: 40px;
+  }
+
+  .invite-title {
+    font-size: 36px;
+  }
+
+  .guest-kicker,
+  .modal-copy,
+  .confirmed-copy,
+  .flow-copy {
+    font-size: 24px;
+  }
+
+  .guest-name {
+    font-size: 24px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .confirm-button {
+    width: auto;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

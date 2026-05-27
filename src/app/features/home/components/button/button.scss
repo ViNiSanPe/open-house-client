@@ -1,0 +1,12 @@
+:host {
+  display: inline-block;
+}
+
+.mc-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
