@@ -250,9 +250,10 @@ export class HomePage implements OnInit {
   }
 
   private updatePreviewTags(invite: Invite): void {
-    const title = invite.previewTitle ?? this.buildPreviewTitle(invite);
-    const description = invite.previewDescription ?? this.buildPreviewDescription(invite);
+    const title = invite.previewTitle ?? this.buildPersonalizedPreviewTitle(invite);
+    const description = invite.previewDescription ?? this.buildPersonalizedPreviewDescription(invite);
     const image = this.toAbsoluteUrl(invite.previewImage ?? environment.defaultPreviewImage);
+    const imageAlt = this.buildPreviewImageAlt(invite);
     const url = this.buildPreviewUrl(invite._id);
 
     this.title.setTitle(title);
@@ -262,11 +263,13 @@ export class HomePage implements OnInit {
     this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:alt', content: imageAlt });
     this.meta.updateTag({ property: 'og:url', content: url });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:title', content: title });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'twitter:image', content: image });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: imageAlt });
   }
 
   private buildPreviewTitle(invite: Invite): string {
@@ -282,6 +285,31 @@ export class HomePage implements OnInit {
     return this.isInviteFlow()
       ? `Convite especial para ${invite.name}${dateText}. Venha celebrar conosco com muita pizza, batata frita e refrigerante!`
       : `Confirmação de presença de ${invite.name}${dateText}.`;
+  }
+
+  private buildPersonalizedPreviewTitle(invite: Invite): string {
+    const date = this.formatInviteDay(invite.day);
+    const dateText = date ? ` — ${date}` : '';
+
+    return this.isInviteFlow()
+      ? `${invite.name}: convite para o Open-House${dateText}`
+      : `${invite.name}: confirme sua presença no Open-House${dateText}`;
+  }
+
+  private buildPersonalizedPreviewDescription(invite: Invite): string {
+    const date = this.formatInviteDay(invite.day);
+    const dateText = date ? ` Dia e horário: ${date}.` : '';
+
+    return this.isInviteFlow()
+      ? `Convite especial para ${invite.name}.${dateText} Venha celebrar conosco com muita pizza, batata frita e refrigerante!`
+      : `Confirmação de presença de ${invite.name}.${dateText}`;
+  }
+
+  private buildPreviewImageAlt(invite: Invite): string {
+    const date = this.formatInviteDay(invite.day);
+    return date
+      ? `Convite de Open-House para ${invite.name}, ${date}`
+      : `Convite de Open-House para ${invite.name}`;
   }
 
   private buildPreviewUrl(inviteId: string): string {
