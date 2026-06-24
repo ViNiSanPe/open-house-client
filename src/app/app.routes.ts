@@ -1,24 +1,21 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './features/home/pages/home-page/home-page';
+
+const loadReschedulePage = () =>
+  import('./features/reschedule/pages/reschedule-page/reschedule-page').then(
+    (page) => page.ReschedulePage,
+  );
 
 export const routes: Routes = [
   {
     path: 'invite/:id',
-    component: HomePage,
-    data: {
-      flow: 'invite'
-    }
+    loadComponent: loadReschedulePage,
   },
   {
     path: 'confirm-presence/:id',
-    component: HomePage,
-    data: {
-      flow: 'confirm'
-    }
+    loadComponent: loadReschedulePage,
   },
   {
     path: '',
-    redirectTo: '/invite/demo',
-    pathMatch: 'full'
-  }
+    loadComponent: loadReschedulePage,
+  },
 ];

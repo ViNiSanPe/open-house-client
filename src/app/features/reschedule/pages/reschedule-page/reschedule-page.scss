@@ -1,0 +1,159 @@
+:host {
+  display: block;
+}
+
+.reschedule-shell {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--mc-bg);
+}
+
+.reschedule-bg,
+.reschedule-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.reschedule-bg {
+  background-image: url('/minecraft-bg.jpg');
+  background-position: center;
+  background-size: cover;
+  image-rendering: pixelated;
+}
+
+.reschedule-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.reschedule-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 16px;
+}
+
+.reschedule-card,
+.state-card {
+  width: 100%;
+  max-width: 672px;
+}
+
+.chip-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.reschedule-title {
+  margin: 24px 0 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 1px;
+  text-align: center;
+
+  span {
+    color: var(--mc-green-light);
+  }
+}
+
+.mc-divider {
+  margin-top: 24px;
+}
+
+.notice-section {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.notice-kicker {
+  margin: 0;
+  color: var(--mc-green-light);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.guest-name {
+  margin: 12px 0 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  overflow-wrap: anywhere;
+}
+
+.notice-copy,
+.closing-copy {
+  margin: 16px 0 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.event-info {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.closing-copy {
+  color: var(--mc-green-light);
+}
+
+.state-title {
+  margin: 0;
+  color: var(--mc-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.state-text {
+  margin: 16px 0 0;
+  color: var(--mc-muted);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .reschedule-stage {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  app-card.reschedule-card {
+    --card-padding: 40px;
+  }
+
+  .reschedule-title {
+    font-size: 36px;
+  }
+
+  .notice-copy,
+  .closing-copy {
+    font-size: 24px;
+  }
+
+  .guest-name {
+    font-size: 24px;
+  }
+}

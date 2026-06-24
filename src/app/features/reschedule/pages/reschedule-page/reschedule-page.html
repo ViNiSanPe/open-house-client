@@ -1,0 +1,65 @@
+<main class="reschedule-shell">
+  <div class="reschedule-bg" aria-hidden="true"></div>
+  <div class="reschedule-overlay" aria-hidden="true"></div>
+
+  <div class="reschedule-stage">
+    @if (loading()) {
+      <app-card class="state-card" [padded]="true">
+        <p class="state-text">Carregando remarcação...</p>
+      </app-card>
+    } @else if (error()) {
+      <app-card class="state-card" [padded]="true">
+        <h1 class="state-title">Erro</h1>
+        <div class="mc-divider"></div>
+        <p class="state-text">{{ error() }}</p>
+      </app-card>
+    } @else {
+      <app-card class="reschedule-card" [padded]="true">
+      <div class="chip-wrap">
+        <span class="mc-chip mc-float">
+          <span class="mc-chip-dot" aria-hidden="true"></span>
+          Aviso importante
+        </span>
+      </div>
+
+      <h1 class="reschedule-title">
+        Open-House
+        <br />
+        <span>remarcado</span>
+      </h1>
+
+      <div class="mc-divider"></div>
+
+      <section class="notice-section" aria-labelledby="notice-title">
+        <p id="notice-title" class="notice-kicker">Nova data confirmada</p>
+        @if (hasInvite()) {
+          <p class="guest-name">{{ guestName() }}</p>
+        }
+        <p class="notice-copy">
+          @if (hasInvite()) {
+            {{ guestName() }}, por motivos de ajustes e reformas na casa, precisamos remarcar nosso
+            Open-House. Obrigado pela compreensão e pelo carinho. A nova data do seu convite já está
+            confirmada abaixo.
+          } @else {
+            Por motivos de ajustes e reformas na casa, precisamos remarcar nosso Open-House.
+            Obrigado pela compreensão e pelo carinho. A nova data já está confirmada abaixo.
+          }
+        </p>
+      </section>
+
+      <div class="mc-divider"></div>
+
+      <section class="event-info" aria-label="Informações atualizadas do evento">
+        <app-info-row icon="calendar" label="Dia & Horário" [value]="eventDateTime()" />
+        <app-info-row icon="map-pin" label="Local" [value]="eventData.location" />
+        <app-info-row icon="pizza" label="No menu" [value]="eventData.menu" />
+        <app-info-row icon="heart" label="Recado" [value]="eventData.note" />
+      </section>
+
+      <p class="closing-copy">
+        Vamos te esperar para comemorar com a casa pronta e tudo no capricho.
+      </p>
+    </app-card>
+    }
+  </div>
+</main>
