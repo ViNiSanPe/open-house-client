@@ -1,5 +1,5 @@
 export const environment = {
-  apiBaseUrl: 'https://api.open-house.joaopdias.dev.br',
+  apiBaseUrl: 'https://api-open-house.joaopdias.dev.br',
   siteUrl: 'https://open-house.joaopdias.dev.br',
   defaultPreviewImage: 'https://open-house.joaopdias.dev.br/minecraft-bg.jpg',
   event: {
